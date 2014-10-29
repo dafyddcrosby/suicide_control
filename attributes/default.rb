@@ -1,5 +1,5 @@
 #
-# Cookbook Name:: suicide-control
+# Cookbook Name:: chefdown
 # Attributes:: default
 #
 # Author: Paul Mooring <paul@getchef.com>
@@ -17,4 +17,4 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-default['suicide_ctl']['fail_on_data_bag'] = true
+default['chefdown']['fail_on_data_bag'] = true

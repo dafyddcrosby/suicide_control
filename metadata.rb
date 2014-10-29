@@ -1,4 +1,4 @@
-name              'suicide_control'
+name              'chefdown'
 maintainer        'Chef Software, Inc.'
 maintainer_email  'sysadmin@getchef.com'
 license           'Apache 2.0'

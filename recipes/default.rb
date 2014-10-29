@@ -15,23 +15,24 @@
 #
 
 begin
-  env = data_bag_item('suicide-ctl', node.chef_environment)
-  suicide = if (env['suicide'] == 'all')
-    "Environment's suicide-ctl data bag is set to `all`"
-  elsif (is_daemonized? and env['suicide'] == 'daemonized')
-    "Environment's suicide-ctl is set to `daemonized`"
+  env = data_bag_item('chefdown', node.chef_environment)
+  chefdown = if (env['chefdown'] == 'all')
+    "Environment's chefdown data bag is set to `all`"
+  elsif (is_daemonized? and env['chefdown'] == 'daemonized')
+    "Environment's chefdown is set to `daemonized`"
   else
     false
   end
 rescue
-  Chef::Log.warn("Could not find the '#{node.chef_environment}' item in the 'suicide-ctl' data bag")
-  raise "Could not load suicide-ctl data bag" if node['suicide_ctl']['fail_on_data_bag']
+  Chef::Log.warn("Could not find the '#{node.chef_environment}' item in the 'chefdown' data bag")
+  raise "Could not load chefdown data bag" if node['chefdown']['fail_on_data_bag']
 ensure
-  if tagged? 'suicide'
-    suicide = "Node is tagged `suicide`"
+  chefdown_tags = node['tags'].select{ |x| x.start_with? 'chefdown_' } || []
+  unless chefdown_tags.empty?
+    chefdown = "Node is tagged #{ chefdown_tags.join ', ' }"
   end
-  if suicide
-    Chef::Log.fatal "Aborting CCR run due to suicide-ctl: #{suicide}"
-    raise "Aborting CCR run due to suicide-ctl: #{suicide}"
+  if chefdown
+    Chef::Log.fatal "Aborting CCR run due to chefdown: #{chefdown}"
+    raise "Aborting CCR run due to chefdown: #{chefdown}"
   end
 end

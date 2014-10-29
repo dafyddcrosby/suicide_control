@@ -1,38 +1,40 @@
-# suicide_control
+# chefdown
 
 **Unsupported by Chef Software, Inc.**
 
-The default recipe aborts a chef-client run if the correct entry
-exists in a data bag, or has a specific tag (`suicide`) set. This can
-be used to prevent a daemonized chef-client from making changes on a
-system during ad-hoc deployment, troubleshooting, or other purposes.
+The default recipe aborts a chef-client run if the correct entry exists in a
+data bag, or has a specific tag (`chefdown_<bugid>`) set. This can be used to
+prevent a daemonized chef-client from making changes on a system during ad-hoc
+deployment, troubleshooting, or other purposes.
 
-We use this cookbook at Chef internally. It is not externally
-supported.
+We use this cookbook at Chef internally. It is not externally supported.
 
-The default recipe loads items for the node `chef_environment` from a
-data bag `suicide-ctl`. These must exist or it will raise an
-exception. The structure of the items is:
+The default recipe loads items for the node `chef_environment` from a data bag
+`chefdown`. These must exist or it will raise an exception. The structure of
+the items is:
 
     {
       "id": "_default",
-      "suicide": "none"
+      "chefdown": "none"
     }
 
-Values for `suicide` can be:
+Values for `chefdown` can be:
 
 * none
 * all
 * daemonized
 
-Optionally, nodes can be tagged with `suicide` and the run will be
+Optionally, nodes can be tagged with `chefdown_<bugid>` and the run will be
 aborted.
 
-    knife tag create NODENAME suicide
+    knife tag create NODENAME chefdown_45109
 
 When done, remove the tag.
 
-    knife tag delete NODENAME suicide
+    knife tag delete NODENAME chefdown_45109
+
+The benefit of using a bug ID in the tag means you can find out why chef was
+turned off.
 
 ## Contributing
 
